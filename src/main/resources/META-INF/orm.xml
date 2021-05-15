@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+        http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
+	version="2.2">
+
+	<!-- Tipo Destino -->
+	<entity
+		class="co.edu.usbcali.viajes.app.domain.TipoIdentificacion">
+		
+
+	</entity>
+	
+	<!-- Cliente -->
+	<entity
+		class="co.edu.usbcali.viajes.app.domain.Cliente">
+		
+				<!-- Consultar Cliente por Codigo de Tipo Identificacion -->
+		<named-native-query
+			name="Cliente.consultarClientePorCodigoDeTipoIdentificacion"
+			result-set-mapping="consultarClientePorCodigoDeTipoIdentificacion">
+			<query>        		
+				SELECT
+				cli.numero_identificacion numeroIdentificacion,
+				cli.nombre nombre,
+				cli.primer_apellido primerApellido
+				FROM cliente cli, tipo_identificacion tiid
+				Where cli.id_tiid = tiid.id_tiid
+      			and tiid.codigo = :pCodigo
+        		</query>
+		</named-native-query>
+	
+	<!-- Tipo Destino -->
+	</entity>	
+	
+	        <entity class="co.edu.usbcali.viajes.app.domain.TipoDestino">
+        	<named-native-query name="TipoDestino.consultarTipoDestinoPorEstado" result-set-mapping="consultarTipoDestinoPorEstado">
+        		<query>
+        		
+        			select 
+						id_tide idTide,
+						codigo codigo,
+						nombre nombre,
+						descripcion descripcion
+						from tipo_destino tide
+						where tide.estado = :pEstado
+        		
+        		</query>
+        	
+        	</named-native-query>
+        
+        
+        </entity> 
+
+
+</entity-mappings>
